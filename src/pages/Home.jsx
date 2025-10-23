@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Mail, Phone, Globe } from 'lucide-react';
 
 const Carousel = ({ children }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -267,28 +268,31 @@ function Home() {
                     <div className="grid md:grid-cols-2 gap-12 items-start">
                         {/* Contact Info */}
                         <div className="space-y-8">
-                            <div className="bg-white bg-opacity-20 p-8 rounded-sm border border-white border-opacity-20">
-                                <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
-                                <div className="space-y-4 text-amber-100 text-base leading-relaxed">
+                            <div className="bg-white p-8 rounded-sm border border-gray-300">
+                                <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
+                                <div className="space-y-4 text-gray-800 text-base leading-relaxed">
                                     <p className="flex items-start">
-                                        <span className="font-semibold mr-3">📧 Email:</span>
-                                        <span>info@duavirtualschool.com</span>
+                                        <Mail className="mr-3 h-5 w-5" />
+                                        <span className="font-semibold">Email:</span>
+                                        <span className="ml-2">info@duavirtualschool.com</span>
                                     </p>
                                     <p className="flex items-start">
-                                        <span className="font-semibold mr-3">📞 Phone:</span>
-                                        <span>+254 712 345 678</span>
+                                        <Phone className="mr-3 h-5 w-5" />
+                                        <span className="font-semibold">Phone:</span>
+                                        <span className="ml-2">+254 712 345 678</span>
                                     </p>
                                     <p className="flex items-start">
-                                        <span className="font-semibold mr-3">🌍 Location:</span>
-                                        <span>Global Virtual Learning</span>
+                                        <Globe className="mr-3 h-5 w-5" />
+                                        <span className="font-semibold">Location:</span>
+                                        <span className="ml-2">Global Virtual Learning</span>
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="bg-white bg-opacity-20 p-8 rounded-sm border border-white border-opacity-20">
-                                <h3 className="text-2xl font-bold text-white mb-4">Office Hours</h3>
-                                <p className="text-amber-100 text-base leading-relaxed">Monday - Friday: 8:00 AM - 5:00 PM EAT</p>
-                                <p className="text-amber-100 text-base leading-relaxed">Saturday: 9:00 AM - 2:00 PM EAT</p>
+                            <div className="bg-white p-8 rounded-sm border border-gray-300">
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Office Hours</h3>
+                                <p className="text-gray-800 text-base leading-relaxed">Monday - Friday: 8:00 AM - 5:00 PM EAT</p>
+                                <p className="text-gray-800 text-base leading-relaxed">Saturday: 9:00 AM - 2:00 PM EAT</p>
                             </div>
                         </div>
 
