@@ -34,24 +34,52 @@ const Carousel = ({ children }) => {
 };
 
 function Home() {
-    const [welcomeText, setWelcomeText] = useState('British International Curriculum');
+    const [welcomeText, setWelcomeText] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const phrases = ['British International Curriculum', 'Quality Homeschooling Services', 'Quality Language Classes Globally'];
-        let index = 0;
-        const interval = setInterval(() => {
-            index = (index + 1) % phrases.length;
-            setWelcomeText(phrases[index]);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, []);
+    const phrases = ['British International Curriculum', 'Quality Homeschooling Services', 'Quality Language Classes Globally'];
+    const [phraseIndex, setPhraseIndex] = useState(0);
+    const [charIndex, setCharIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [blink, setBlink] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        const typingSpeed = isDeleting ? 30 : 100; // Faster deletion, slower typing
+        const timer = setInterval(() => {
+            if (!isDeleting && charIndex <= phrases[phraseIndex].length) {
+                setWelcomeText(phrases[phraseIndex].substring(0, charIndex));
+                setCharIndex(charIndex + 1);
+            }
+
+            if (!isDeleting && charIndex > phrases[phraseIndex].length) {
+                setTimeout(() => setIsDeleting(true), 1000); // Pause before deleting
+            }
+
+            if (isDeleting && charIndex >= 0) {
+                setWelcomeText(phrases[phraseIndex].substring(0, charIndex));
+                setCharIndex(charIndex - 1);
+            }
+
+            if (isDeleting && charIndex < 0) {
+                setIsDeleting(false);
+                setPhraseIndex((phraseIndex + 1) % phrases.length);
+                setCharIndex(0);
+            }
+        }, typingSpeed);
+
+        // Blink cursor effect
+        const blinkTimer = setInterval(() => setBlink((prev) => !prev), 500);
+
+        return () => {
+            clearInterval(timer);
+            clearInterval(blinkTimer);
+        };
+    }, [phraseIndex, charIndex, isDeleting]);
 
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
@@ -115,8 +143,9 @@ function Home() {
                     <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
                         Welcome to<br />Dua Virtual School
                     </h2>
-                    <p className="text-2xl md:text-3xl text-amber-100 mb-12 font-light min-h-[40px] transition-opacity duration-500">
+                    <p className="text-2xl md:text-3xl text-amber-100 mb-12 font-light min-h-[40px]">
                         {welcomeText}
+                        <span className={`inline-block w-2 h-8 bg-amber-100 ${blink ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}></span>
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button className="bg-white text-amber-900 px-8 py-4 rounded-sm font-semibold hover:bg-amber-50 transition-all duration-300 transform hover:scale-105 shadow-xl">
@@ -194,7 +223,6 @@ function Home() {
                 </div>
             </section>
 
-
             {/* Why Choose Us */}
             <section id="courses" className="py-24 px-6 bg-gradient-to-br from-stone-100 to-amber-50">
                 <div className="max-w-7xl mx-auto">
@@ -239,17 +267,17 @@ function Home() {
                             {
                                 title: 'Primary, Secondary & A-Levels',
                                 desc: 'We offer a full range of academic programs from primary through secondary education, through the British International Curriculum preparing students for university and beyond.',
-                                image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80'
+                                image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
                             },
                             {
                                 title: 'Private Tuition Services',
                                 desc: 'Our private tuition services provide personalized, one-on-one support to help students strengthen their understanding and excel in their studies.',
-                                image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
+                                image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
                             },
                             {
                                 title: 'Professional Language Classes',
                                 desc: 'We deliver expert-led language classes designed to develop proficiency and confidence in a variety of languages for personal, academic, or professional growth.',
-                                image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80'
+                                image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80'
                             }
                         ].map((item, index) => (
                             <div key={index} className="max-w-2xl mx-auto">
