@@ -236,13 +236,29 @@ function Home() {
 
                     <Carousel>
                         {[
-                            { title: 'Primary, Secondary & A-Levels', desc: 'We offer a full range of academic programs from primary through secondary education, through the British International Curriculum preparing students for university and beyond.' },
-                            { title: 'Private Tuition Services', desc: 'Our private tuition services provide personalized, one-on-one support to help students strengthen their understanding and excel in their studies.' },
-                            { title: 'Professional Language Classes', desc: 'We deliver expert-led language classes designed to develop proficiency and confidence in a variety of languages for personal, academic, or professional growth.' }
+                            {
+                                title: 'Primary, Secondary & A-Levels',
+                                desc: 'We offer a full range of academic programs from primary through secondary education, through the British International Curriculum preparing students for university and beyond.',
+                                image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80'
+                            },
+                            {
+                                title: 'Private Tuition Services',
+                                desc: 'Our private tuition services provide personalized, one-on-one support to help students strengthen their understanding and excel in their studies.',
+                                image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
+                            },
+                            {
+                                title: 'Professional Language Classes',
+                                desc: 'We deliver expert-led language classes designed to develop proficiency and confidence in a variety of languages for personal, academic, or professional growth.',
+                                image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80'
+                            }
                         ].map((item, index) => (
                             <div key={index} className="max-w-2xl mx-auto">
                                 <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-12 rounded-sm shadow-xl border border-amber-100">
-                                    <div className="w-full h-64 bg-gradient-to-br from-amber-700 to-orange-600 rounded-sm mb-8"></div>
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-64 object-cover rounded-sm mb-8"
+                                    />
                                     <h3 className="text-3xl font-bold text-gray-900 mb-4">{item.title}</h3>
                                     <p className="text-gray-700 text-lg leading-relaxed">{item.desc}</p>
                                 </div>
@@ -357,8 +373,6 @@ function Home() {
                     </div>
                 </div>
             </section>
-
-
 
             {/* Footer */}
             <footer className="bg-gray-900 text-white py-12 px-6">
